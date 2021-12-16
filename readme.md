@@ -22,6 +22,7 @@ You can run from terminal './setup.sh' to make all of the operation at one time
 This app allow to registrate an user as <b>base</b> or <b>administrator</b>
 
 Each user can manage and delete his own account
+
 Each <b>administrator</b> user can manage and delete each base account
 
 The password for each of the example users created is 'pass'
