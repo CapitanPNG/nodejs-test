@@ -1,0 +1,156 @@
+<!doctype html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Chatfit TEST - Users Management (Editor)</title>
+
+    <!-- jQuery -->
+    <script src="/scripts/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/styles/bootstrap/bootstrap.min.css">
+    <script src="/scripts/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles/styles.css">
+
+    <!-- Password-Viewer -->
+    <script src="/scripts/password-viewer.js"></script>
+
+    <!-- Page Script -->
+    <script src="/scripts/pages/users-management-id.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
+        <a class="navbar-brand" href="#">TEST</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                <%= userData.account.email %>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/profile">Profilo</a></li>
+
+                  <% if (userData.account.isAdmin) { %>
+                    <li><a class="dropdown-item" href="/users-management">Gestione utenti</a></li>
+                  <% } %>
+
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/logout">Disconnetti</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+    </nav>
+    <div class="container d-flex justify-content-center">
+        <form class="needs-validation" id="profile-form" method="put" novalidate data-buid="<%= baseUserData.account.id %>">
+            <fieldset class="mb-5">
+                <legend class="mb-3">Account</legend>
+                <div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="input form-control" id="email" name="email" placeholder="Email" required value="<%= baseUserData.account.email %>">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group mb-3">
+                            <input type="password" class="input form-control" id="password" name="password" placeholder="Password" required value="">
+                            <button class="btn btn-outline-secondary password-viewer" type="button">SHOW</button>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="input form-check-input" id="is_admin" name="is_admin" value="on" <%= (baseUserData.account.isAdmin ? 'checked' : null) %>>
+                            <label class="form-check-label" for="is_admin">
+                                Amministratore
+                            </label>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="mb-5">
+                <legend>Anagrafica</legend>
+                <div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="input form-control" id="nome" name="nome" placeholder="Nome" required value="<%= baseUserData.anagrafica.nome %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col">
+                            <label for="cognome" class="form-label">Cognome</label>
+                            <input type="text" class="input form-control" id="cognome" name="cognome" placeholder="Cognome" required value="<%= baseUserData.anagrafica.cognome %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="data-nascita" class="form-label">Data Nascita</label>
+                            <input type="text" class="input form-control" id="data_nascita" name="data_nascita" placeholder="dd/mm/yyyy" required value="<%= baseUserData.anagrafica.data_nascita %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col">
+                            <label for="luogo-nascita" class="form-label">Luogo Nascita</label>
+                            <input type="text" class="input form-control" id="luogo_nascita" name="luogo_nascita" placeholder="Luogo Nascita" required value="<%= baseUserData.anagrafica.luogo_nascita %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="sesso" class="form-label">Sesso</label>
+                            <select class="input form-select" id="sesso" name="sesso" required>
+                                <option selected value="">Sesso</option>
+                                <option value="M" <%= (baseUserData.anagrafica.sesso === 'M') ? 'selected' : null %>>M</option>
+                                <option value="F" <%= (baseUserData.anagrafica.sesso === 'F') ? 'selected' : null %>>F</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3"></div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="data-emissione-carta" class="form-label">Data Emissione Carta</label>
+                            <input type="text" class="input form-control" id="data_emissione_carta" name="data_emissione_carta" placeholder="dd/mm/yyyy" required value="<%= baseUserData.anagrafica.data_emissione_carta %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col">
+                            <label for="data-scadenza-carta" class="form-label">Data Scadenza Carta</label>
+                            <input type="text" class="input form-control" id="data_scadenza_carta" name="data_scadenza_carta" placeholder="dd/mm/yyyy" required value="<%= baseUserData.anagrafica.data_scadenza_carta %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="codice-carta" class="form-label">Codice Carta</label>
+                            <input type="text" class="input form-control" id="codice_carta" name="codice_carta" placeholder="Codice Carta" required value="<%= baseUserData.anagrafica.codice_carta %>">
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="controls">
+                <div class="d-flex justify-content-center mb-3">
+                    <button type="submit" class="btn btn-primary button">Salva</button>
+                </div>
+                <div class="row mb-5"></div>
+                <div class="d-flex justify-content-center mb-3">
+                    <button type="button" class="btn btn-danger button" id="btn-delete-account" style="width: 200px;">Elimina Account</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
